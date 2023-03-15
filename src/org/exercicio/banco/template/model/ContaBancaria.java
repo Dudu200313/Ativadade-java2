@@ -2,9 +2,9 @@ package org.exercicio.banco.template.model;
 
 /**
 *
-* Nome:
-* Curso:
-* Matrícula:
+* Nome:Eduardo Silvino Cristovão
+* Curso: TSI
+* Matrícula:20221TSIIG0252
 * 
 */
 public class ContaBancaria {
@@ -45,7 +45,11 @@ public class ContaBancaria {
 	 * @param valor
 	 */
 	public void depositar(double valor) {
-		
+		if (this.status &&  valor > 0) {
+			saldo += valor ;
+		} else
+			System.out.print("Valor invalido para deposito.");
+
 	}
 
 	/**
@@ -56,13 +60,25 @@ public class ContaBancaria {
 	 * console "Valor inválido para saque." Por fim, caso o valor solicitado para o
 	 * saque seja maior que o saldo disponivel, a msg "Saldo insuficiente." deve ser
 	 * exibida no console. Caso as checagens sejam atendidas, decremente o valor
-	 * solicitado do saldo. Utilize System.out.print();
+	 * solicitado do saldo. Utilize 
 	 * 
 	 * @param valor
 	 */
 	public void sacar(double valor) {
-		
+		if (status == false) {
+			System.out.print("Conta inativa.");
+		}
+		else if (valor <= 0) {
+			System.out.print("Valor inválido para saque.");
+		}
+		else if (valor > saldo) {
+			System.out.print("Saldo insuficiente.");
+		}
+		else {
+			saldo-=valor;
+		}
 	}
+	
 
 	/**
 	 * O metodo fechar conta verifica se a conta ja esta inativa, caso esteja a msg
@@ -73,7 +89,15 @@ public class ContaBancaria {
 	 * fechar a conta. Utilize System.out.print();
 	 */
 	public void fecharConta() {
-		
+		if (this.status == false) {
+			System.out.print("Conta ja inativa.");
+		}
+		else if (this.saldo != 0) {
+			System.out.print("Conta com saldo. Nao eh possivel fecha-la.");
+		}
+		else {
+			this.status = false;
+		}
 	}
 
 	/**
@@ -82,7 +106,12 @@ public class ContaBancaria {
 	 * ativa." deve ser exibida no console. Utilize System.out.print();
 	 */
 	public void reabrirConta() {
-		
+		if (this.status) {
+			System.out.print("Conta ja ativa.");
+		}
+		else {
+			this.status = true;
+		}
 	}
 
 	/**
@@ -99,8 +128,19 @@ public class ContaBancaria {
 	 * @param quantia
 	 * @param destino
 	 */
-	public void realizarTransferencia(double quantia, ContaBancaria destino) {
-
+	public void realizarTransferencia(double quantia, ContaBancaria destino) {	
+		if(this.status == false) {
+			System.out.print("Conta de origem inativa.");
+		}
+		else if (destino.status == false) {
+			System.out.print("Conta de destino inativa.");
+		}
+		else if (quantia > this.saldo) {
+			System.out.print("Saldo insuficiente para transferencia.");
+		}
+		else {
+			destino.saldo += quantia;
+		}
 	}
 
 	public int getNumeroConta() {
